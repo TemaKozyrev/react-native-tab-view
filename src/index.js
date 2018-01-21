@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, ScrollView, Dimensions, TouchableOpacity, Text, Animated, StyleSheet } from 'react-native';
+import {
+  View,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+  Text,
+  Animated,
+  StyleSheet,
+  Platform } from 'react-native';
+
+const { height } = Dimensions.get('window');
 
 class TabView extends Component {
   constructor(props) {
@@ -9,6 +19,7 @@ class TabView extends Component {
       indicatorPosition: new Animated.Value(0),
       currentIndex: 0,
       action: false,
+      onScroll: false,
     };
   }
 
@@ -22,7 +33,7 @@ class TabView extends Component {
         indicatorPosition,
         {
           toValue: nextPosition,
-          duration: 300,
+          duration: Platform.os === 'ios' ? 300 : 150,
         },
       ).start();
       this.scroll.scrollTo({ x: nextPosition, animated: true });
@@ -106,36 +117,42 @@ class TabView extends Component {
 
   renderContent() {
     const { children, contentScrollViewProps, width } = this.props;
-    const { action } = this.state;
+    const { action, currentIndex, onScroll } = this.state;
 
     return (
       <ScrollView
         ref={(scroll) => { this.scroll = scroll; }}
         horizontal
         pagingEnabled
+        bounces={false}
+        alwaysBounceHorizontal={false}
         showsHorizontalScrollIndicator={false}
+        onMomentumScrollBegin={() => this.setState({ onScroll: true })}
         onMomentumScrollEnd={event => this.setState({
-          currentIndex: event.nativeEvent.contentOffset.x / width,
-        })}
-        onScroll={!action && Animated.event([{
+          currentIndex: Math.round(event.nativeEvent.contentOffset.x / width),
+          onScroll: false,
+        })
+      }
+        onScroll={!action ? Animated.event([{
           nativeEvent: {
               contentOffset: {
                 x: this.state.indicatorPosition,
               },
             },
-          }])}
+          }]) : () => {}}
         scrollEventThrottle={1}
         contentContainerStyle={{
           marginTop: 10,
         }}
         {...contentScrollViewProps}
       >
-        {children.map(item =>
+        {children.map((item, index) =>
           <View
             key={item.props.label}
-            style={{
+            style={[{
               width,
-            }}
+            // }]}
+          }, (currentIndex !== index && !action) ? { height: 0 } : {}, onScroll ? { height } : {}]}
           >
             {item}
           </View>)}
