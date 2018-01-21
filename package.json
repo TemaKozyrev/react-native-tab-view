@@ -1,0 +1,26 @@
+{
+  "name": "react-native-tab-view",
+  "version": "0.0.1",
+  "description": "React native Tab View",
+  "main": "index.js",
+  "repository": "git@github.com:TemaKozyrev/react-native-tab-view.git",
+  "author": "TemaKozyrev <tema@tema.ws>",
+  "license": "MIT",
+  "keywords": [
+    "react-native",
+    "react-native-js",
+    "react-native-component",
+    "react-native-tab",
+    "react-native-tab-view"
+  ],
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "prop-types": "*"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.0",
+    "react": "16.2.0",
+    "react-native": "0.52.0"
+  }
+}
