@@ -14,9 +14,7 @@
     "react-native-tab-view"
   ],
   "peerDependencies": {
-    "react": "*",
     "react-native": "*",
-    "prop-types": "*"
   },
   "dependencies": {
     "prop-types": "^15.6.0"
