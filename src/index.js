@@ -174,14 +174,14 @@ class TabView extends Component {
 TabView.propTypes = {
   width: PropTypes.number,
   children: PropTypes.array.isRequired,
-  indicatorStyle: PropTypes.object,
-  tabBarWrapperStyle: PropTypes.object,
+  indicatorStyle: PropTypes.any,
+  tabBarWrapperStyle: PropTypes.any,
   contentScrollViewProps: PropTypes.object,
-  tabLabelTextStyle: PropTypes.object,
-  tabButtonStyle: PropTypes.object,
-  unactiveTabButtonStyle: PropTypes.object,
-  unactiveTabLabelTextStyle: PropTypes.object,
-  wrapperStyle: PropTypes.object,
+  tabLabelTextStyle: PropTypes.any,
+  tabButtonStyle: PropTypes.any,
+  unactiveTabButtonStyle: PropTypes.any,
+  unactiveTabLabelTextStyle: PropTypes.any,
+  wrapperStyle: PropTypes.any,
 };
 
 TabView.defaultProps = {
